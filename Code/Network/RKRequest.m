@@ -654,11 +654,11 @@
         return nil;
     }
     // Use [_params HTTPBody] because the URLRequest body may not have been set up yet.
-    NSString* compositCacheKey = nil;
+    NSString* compositeCacheKey = nil;
     if (_params)
     {
         if ([_params respondsToSelector:@selector(HTTPBody)]) {
-            compositCacheKey = [NSString stringWithFormat:@"%@-%d-%@", self.URL, _method, [_params HTTPBody]];
+            compositeCacheKey = [NSString stringWithFormat:@"%@-%d-%@", self.URL, _method, [_params HTTPBody]];
         }
         else if ([_params isKindOfClass:[RKParams class]]) {
             NSArray *attachments = ((RKParams *)_params).attachments;
@@ -666,15 +666,16 @@
             for (RKParamsAttachment* attachment in attachments) {
                 [allMD5StringInAttachments appendString:attachment.MD5String];
             }
-            compositCacheKey = [NSString stringWithFormat:@"%@-%d-%@", self.URL, _method, allMD5StringInAttachments];
+            compositeCacheKey = [NSString stringWithFormat:@"%@-%d-%@", self.URL, _method, allMD5StringInAttachments];
             [allMD5StringInAttachments release];
         }
     }
     else
     {
-        compositCacheKey = [NSString stringWithFormat:@"%@-%d", self.URL, _method];
+        compositeCacheKey = [NSString stringWithFormat:@"%@-%d", self.URL, _method];
     }
-    return [compositCacheKey MD5];
+    NSAssert(compositeCacheKey, @"Expected a cacheKey to be generated for request %@, but got nil", compositeCacheKey);
+    return [compositeCacheKey MD5];
 }
 
 @end
