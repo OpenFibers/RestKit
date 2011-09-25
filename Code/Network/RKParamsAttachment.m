@@ -23,6 +23,7 @@
 #endif
 #import "RKParamsAttachment.h"
 #import "RKLog.h"
+#import "NSData+MD5.h"
 
 // Set Logging Component
 #undef RKLogComponent
@@ -39,12 +40,13 @@ extern NSString* const kRKStringBoundary;
 
 @implementation RKParamsAttachment
 
-@synthesize fileName = _fileName, MIMEType = _MIMEType, name = _name;
+@synthesize fileName = _fileName, MIMEType = _MIMEType, name = _name, MD5String = _MD5;
 
 - (id)initWithName:(NSString*)name {
 	if ((self = [self init])) {
         self.name = name;
         self.fileName = name;
+        self.MD5String = @"";
 	}
 	
 	return self;
@@ -58,7 +60,8 @@ extern NSString* const kRKStringBoundary;
 		} else {
 			[body appendData:[[NSString stringWithFormat:@"%@", value] dataUsingEncoding:NSUTF8StringEncoding]];
 		}
-		
+        self.MD5String = [body MD5];
+        
 		_bodyStream    = [[NSInputStream alloc] initWithData:body];
 		_bodyLength    = [body length];
 	}

@@ -39,6 +39,11 @@
 }
 
 /**
+ * Array of all attachments
+ */
+@property (nonatomic,retain) NSMutableArray *attachments;
+
+/**
  * Returns an empty params object ready for population
  */
 + (RKParams*)params;

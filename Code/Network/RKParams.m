@@ -32,6 +32,8 @@ NSString* const kRKStringBoundary = @"0xKhTmLbOuNdArY";
 
 @implementation RKParams
 
+@synthesize attachments = _attachments;
+
 + (RKParams*)params {
 	RKParams* params = [[[RKParams alloc] init] autorelease];
 	return params;

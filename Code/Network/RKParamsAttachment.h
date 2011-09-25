@@ -29,6 +29,7 @@
 	NSString* _name;
 	NSString* _fileName;
 	NSString* _MIMEType;
+    NSString* _MD5;
 
 	@private
 	NSData*			_MIMEHeader;
@@ -38,6 +39,11 @@
 	NSUInteger		_length;
 	NSUInteger		_delivered;
 }
+
+/**
+ * MD5 value of this attachment body
+ */
+@property (nonatomic, retain) NSString* MD5String;
 
 /**
  * The parameter name of this attachment in the multi-part document
